@@ -14,16 +14,4 @@ export function useOrder() {
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString()
   });
-
-  const clearOrder = () => {
-    // Resetear el estado
-    setOrder({
-      items: [],
-      subtotal: 0,
-      total: 0,
-      status: 'pending',
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
-    });
-  };
 }
