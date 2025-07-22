@@ -1,0 +1,567 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+  
+  /* Colores para el tema de taquería */
+  --taco-primary: #f59e0b;
+  --taco-secondary: #d97706;
+  --taco-accent: #65a30d;
+  --taco-dark: #78350f;
+  --taco-light: #fef3c7;
+  --taco-highlight: #fbbf24;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+/* Monospace Font */
+@font-face {
+  font-family: "ReplicaLLMono";
+  src: url("./fonts/ReplicaMonoLLWeb-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Other ReplicaLL Fonts */
+@font-face {
+  font-family: "ReplicaLL";
+  src: url("./fonts/ReplicaLLWeb-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ReplicaLL";
+  src: url("./fonts/ReplicaLLWeb-Italic.woff2") format("woff2");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ReplicaLL";
+  src: url("./fonts/ReplicaLLWeb-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ReplicaLL";
+  src: url("./fonts/ReplicaLLWeb-LightItalic.woff2") format("woff2");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ReplicaLL";
+  src: url("./fonts/ReplicaLLWeb-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ReplicaLL";
+  src: url("./fonts/ReplicaLLWeb-BoldItalic.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ReplicaLL";
+  src: url("./fonts/ReplicaLLWeb-Heavy.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ReplicaLL";
+  src: url("./fonts/ReplicaLLWeb-HeavyItalic.woff2") format("woff2");
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@layer base {
+  html {
+    font-family: ReplicaLL;
+  }
+  
+  /* Estilo de animación para toda la página */
+  * {
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, opacity 0.2s ease;
+  }
+}
+
+@layer utilities {
+  .scrollbar-visible {
+    scrollbar-width: thin;  /* For Firefox */
+    scrollbar-color: #888 #f1f1f1;  /* For Firefox */
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  .scrollbar-visible::-webkit-scrollbar {
+    width: 12px;
+    background-color: #f1f1f1;
+  }
+
+  .scrollbar-visible::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 20px;
+    border: 3px solid #f1f1f1;
+  }
+
+  .scrollbar-visible::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+  }
+
+  /* Ensure the scrollbar is always visible in WebKit browsers */
+  .scrollbar-visible::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    border-radius: 20px;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Animación para campos completados por voz */
+  @keyframes field-completed-pulse {
+    0%, 100% {
+      background-color: var(--tw-bg-opacity, 1) theme('colors.green.50');
+      border-color: var(--tw-border-opacity, 1) theme('colors.green.300');
+    }
+    50% {
+      background-color: var(--tw-bg-opacity, 1) theme('colors.green.100');
+      border-color: var(--tw-border-opacity, 1) theme('colors.green.400');
+    }
+  }
+
+  .field-completed-animation {
+    animation: field-completed-pulse 1.5s ease-in-out;
+  }
+}
+
+/* Animaciones y efectos para el menú de la taquería */
+@keyframes pulse-highlight {
+  0% {
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(245, 158, 11, 0);
+    transform: scale(1.02);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Estilos para las burbujas de conversación */
+.conversation-message {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Animación cuando se añade un elemento al pedido */
+@keyframes addToCart {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Animación de resaltado para producto resaltado por el agente */
+@keyframes highlightPulse {
+  0% {
+    box-shadow: 0 0 5px rgba(251, 191, 36, 0.4);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 12px rgba(251, 191, 36, 0.7);
+    transform: scale(1.02);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(251, 191, 36, 0.4);
+    transform: scale(1);
+  }
+}
+
+/* Clase para activar la animación de destacado */
+.highlight-pulse {
+  animation: highlightPulse 2s ease-in-out infinite;
+}
+
+/* Efecto flash para destacar productos */
+@keyframes flashHighlight {
+  0% {
+    background-color: rgba(251, 191, 36, 0);
+  }
+  30% {
+    background-color: rgba(251, 191, 36, 0.15);
+  }
+  70% {
+    background-color: rgba(251, 191, 36, 0.15);
+  }
+  100% {
+    background-color: rgba(251, 191, 36, 0);
+  }
+}
+
+.flash-highlight {
+  animation: flashHighlight 1.2s ease-in-out;
+  border: 2px solid rgba(245, 158, 11, 0.7) !important;
+}
+
+/* Animación de añadido al carrito */
+@keyframes addedToCart {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(22, 163, 74, 0.3);
+  }
+  50% {
+    transform: scale(0.98);
+  }
+  75% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Clase para activar animación de añadido al carrito */
+.added-to-cart {
+  animation: addedToCart 0.8s ease-in-out forwards;
+  border-color: #16a34a !important;
+  box-shadow: 0 0 15px rgba(22, 163, 74, 0.2);
+}
+
+/* Animación para rebote lento */
+@keyframes slowBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Clase para rebote lento */
+.animate-bounce-slow {
+  animation: slowBounce 2s ease-in-out infinite;
+}
+
+/* Estilo para los botones que flotan en hover */
+.hover-float {
+  transition: transform 0.2s ease;
+}
+
+.hover-float:hover {
+  transform: translateY(-3px);
+}
+
+/* Estilos para las tarjetas de productos y precios */
+.product-card {
+  transition: all 0.3s ease;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Estilo para asegurar que los precios se muestren correctamente en un solo renglón */
+.product-card .price-tag {
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Animación para el total cuando cambia */
+.total-price {
+  transition: all 0.3s ease;
+}
+
+.total-price.updated {
+  animation: bounce 0.5s ease;
+  color: var(--taco-accent);
+}
+
+/* Efecto de entrada para los elementos del carrito */
+.cart-item {
+  animation: slideInRight 0.3s ease-out forwards;
+}
+
+/* Animación suave para botones */
+.btn {
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Loader para estados de carga */
+.loader {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Animaciones para componentes */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes orderUpdated {
+  0% { box-shadow: 0 0 0 rgba(16, 185, 129, 0); }
+  50% { box-shadow: 0 0 15px rgba(16, 185, 129, 0.5); }
+  100% { box-shadow: 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.product-highlighted {
+  animation: highlightPulse 2.5s ease-in-out;
+}
+
+.order-updated {
+  animation: orderUpdated 1s ease-in-out;
+}
+
+.order-items-container > div {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.btn {
+  transition: all 0.2s ease-in-out;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.hover-float {
+  transition: transform 0.3s ease;
+}
+
+.hover-float:hover {
+  transform: translateY(-3px);
+}
+
+.product-card {
+  transition: all 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.category-btn {
+  transition: all 0.2s ease;
+}
+
+.category-btn.active {
+  background-color: #92400e;
+  color: white;
+}
+
+.category-btn:hover:not(.active) {
+  background-color: #fef3c7;
+}
+
+/* Efecto de ripple para botones */
+.ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%);
+  transform-origin: 50% 50%;
+}
+
+.ripple:focus:not(:active)::after {
+  animation: ripple 0.6s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
+  }
+  20% {
+    transform: scale(25, 25);
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(40, 40);
+  }
+}
+
+/* Animación para el checkmark cuando un producto se añade al carrito */
+@keyframes checkmark {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  70% {
+    transform: scale(0.9);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-checkmark {
+  animation: checkmark 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+}
+
+/* Animación mejorada para efectos de pulso */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Animación de desplazamiento suave */
+.scroll-smooth {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Mejora visual para tarjetas del menú */
+.menu-card-shadow {
+  box-shadow: 0 4px 6px -1px rgba(245, 158, 11, 0.1), 0 2px 4px -1px rgba(245, 158, 11, 0.06);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.menu-card-shadow:hover {
+  box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.2), 0 4px 6px -2px rgba(245, 158, 11, 0.1);
+  transform: translateY(-4px);
+}
+
+/* Animación para transiciones de menú */
+@keyframes menuTransition {
+  0% {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.menu-transition {
+  animation: menuTransition 0.3s ease-out forwards;
+}
