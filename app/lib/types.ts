@@ -1,6 +1,7 @@
 @@ .. @@
  // Pedido completo
  export interface Order {
+ }
 -  id: string;
 +  id?: string;
    items: OrderItem[];
